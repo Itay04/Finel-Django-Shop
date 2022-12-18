@@ -1,1 +1,1 @@
-# Finel-Django-Shop
+# django_shop1
