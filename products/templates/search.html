@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Djago search</title>
+</head>
+<body>
+   
+<form action="{% url 'products:search' %}" method="POST">
+    {% csrf_token %}
+    <input type="text" name="name">
+    <input type="submit" name="submit" valued="search">
+</form>
+
+{% for product in prodduct_list}
+
+    <p>{{result.name}}</p>
+
+{%emdfor%}
+
+
+</body>
+</html>

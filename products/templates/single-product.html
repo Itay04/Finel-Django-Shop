@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %} 
+{% block main %}
+
+
+  
+  {% for product in product_list %}    
+  <div class="col">
+    <div class="card">
+      <img style="width:150px;height:150px" src="{% static 'images/' %}{{ product.image }}" class="card-img-top" alt="...">
+      <div class="card-body">
+        <h5 class="card-title">{{ single_product.name }}</h5>
+        <p class="card-text"> price= {{ product.price }}$ <br> Seller ={{ product.seller }}  <br> Quantity= {{ product.quantity }} </p>
+        {% if user.is_staff %}
+        <a href="{%url 'products:delete_product'  product.id%}"  class="btn btn-danger">DELETE</a>
+        {% endif %}
+        <a href="{% url 'products:add_to_cart'  product.id %}" class="btn btn-danger">ADD TO CART</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

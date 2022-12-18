@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main %}
+
+{% if edit_product %}
+<img style="width:150px;height:150px" src="{% static 'images/' %}{{ product.image }}" class="card-img-top" alt="...">
+<br>
+<hr>
+<form action="{% url 'products:edit' product.id %}" method="POST">
+    {% csrf_token %}
+
+    Title<input type="text" name="name" value="{{ product.name }}" />
+    <br><br>
+    Seller<input type="text" name="seller" value="{{ product.seller }}" />
+    <br><br>
+    Year Manufacture<input type="date" name="Year_manufacture" value="{{ product.Year_manufacture|date:'Y-d-m' }}" />
+    <br><br>
+    product type<input type="text" name="typestub" value="{{ product.get_type }}" enabled="false" readonly="true" />
+    <br><br>
+    <input type="submit" value="Save">
+</form>
+<br><br>
+<a class="btn btn-info" href="{{ request.META.HTTP_REFERER }} ">Back</a>
+
+{% else %}
+
+<img style="width:150px;height:150px" src="{% static 'images/' %}{{ product.image }}" class="card-img-top" alt="...">
+<br>
+<h1>{{ product.name }} by {{ products.price }}</h1>
+<i>
+    <h4>Published in {{ product.Year_manufacture|date:"Y" }} </h4>
+</i>
+<!-- # more tags (example): 
+# |truncatechars:3
+|timesince
+|floatformat:2
+-->
+<hr>
+
+<br><br>
+{% if user.is_staff %}
+<a class="btn btn-info" href="{% url 'Products:edit' product.id %}">Edit Book</a>
+<a class="btn btn-danger" onclick="confirm('are you sure?');"
+    href="{% url 'products:delete_product' product.id %}">Delete product</a>
+{% endif %}
+
+{% endif %}
+{% endblock %}
